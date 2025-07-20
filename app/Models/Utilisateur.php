@@ -15,5 +15,9 @@ class Utilisateur extends Authenticatable
         'mot_de_passe',
     ];
 
+    public function getAuthPassword()
+    {
+        return $this->mot_de_passe;
+    }
     // You can add other model properties or methods here as needed
 }
