@@ -18,7 +18,6 @@ return new class extends Migration
             $table->float('prix');
             $table->string('image_url')->nullable();
             $table->foreignId('stand_id')->constrained('stands')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

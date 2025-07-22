@@ -33,6 +33,12 @@ Route::resource('produits', ProduitController::class);
 
 Route::get('/stands', [PublicStandController::class, 'index'])->name('public.stands.index');
 Route::get('/stands/{stand}/produits', [PublicStandController::class, 'productsByStand'])->name('public.stands.products');
+//formulaire de stand
+Route::get('/addStand', function () {
+    return view('public.stands.addStand');
+})->name('addStand');
+
+Route::post('/addStand', [PublicStandController::class, 'store'])->name('addStand.store'); // Ajout du stand
 
 // Routes pour le Panier
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
@@ -43,10 +49,9 @@ Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('ca
 Route::get('/checkout', [CartController::class, 'showCheckoutForm'])->name('checkout.show'); // Pour afficher le formulaire de commande
 Route::post('/checkout', [CartController::class, 'placeOrder'])->name('checkout.place'); // Pour soumettre la commande
 
+//Admin
 //Aller vers la page de board
+Route::get('/stand', [AdminController::class, 'liste_stand'])->name('stand');
 Route::get('/dashboard', [AdminController::class, 'liste_demande_stand'])->name('dashboard');
-Route::get('/app', function () {
-    return view('layouts.app');
-})->name('app');
-
-
+Route::post('/approuved', [AdminController::class, 'approuved'])->name('approuved');
+Route::post('/reject', [AdminController::class, 'reject'])->name('reject');

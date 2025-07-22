@@ -15,13 +15,6 @@
             @csrf
             <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"  data-theme="retro">
             <p class="fieldset-legend text-xl">Demande d'entreprenariat</p>
-
-            <label class="label">Nom</label>
-            <input type="text" name="nom" class="input" placeholder="Doe" />
-
-            <label class="label">Prenom</label>
-            <input type="text" name="prenom" class="input" placeholder="John" />
-
             <label class="label">Nom de l'entreprise</label>
             <input type="text" name="nom-entreprise" class="input" placeholder="laVilla" />
 

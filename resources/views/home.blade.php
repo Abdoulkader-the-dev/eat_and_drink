@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="cupcake">
+<html lang="en" data-theme="acid">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
 
         {{-- Lien vers la liste des exposants --}}
         <div class="flex flex-wrap justify-center gap-4 mb-8">
-            <a href="{{ route('app') }}" class="btn btn-primary btn-lg transition duration-300 ease-in-out hover:scale-105">
+            <a href="{{ route('public.stands.index') }}" class="btn btn-primary btn-lg transition duration-300 ease-in-out hover:scale-105">
                 Voir nos Exposants
             </a>
 
@@ -33,7 +33,7 @@
                 <p class="text-2xl mb-4">Bienvenue de retour,
                     <span class="font-bold text-success-content ">
                         {{ Auth::user()->nom_entreprise ?? Auth::user()->nom }}
-                    </span> 🥳
+                    </span>
                 </p>
                 <span class="badge badge-warning text-lg mb-4">{{ Auth::user()->role }}</span>
 
@@ -42,9 +42,19 @@
                         @csrf
                         <button class="btn btn-warning btn-wide transition duration-300 ease-in-out hover:scale-105 text-xl">Se déconnecter</button>
                     </form>
-                    <a href="{{ route('dashboard') }}" class="btn btn-success text-xl btn-wide transition duration-300 ease-in-out hover:scale-105">
-                        Mon Tableau de Bord
-                    </a>
+                    @if (Auth::user()->role === "entrepreneur_approuve" || Auth::user()->role === "admin" )
+                        {{-- <a href="{{ route('') }}" class="btn btn-success text-xl btn-wide transition duration-300 ease-in-out hover:scale-105">
+                        Mes produits
+                        </a>     Aller vers le tableau des produits --}}
+                        <a href="{{ route('addStand') }}" class="btn btn-neutral text-xl btn-wide transition duration-300 ease-in-out hover:scale-105">
+                            Ajouter un stand
+                        </a>
+                            @if (Auth::user()->role === "admin")
+                                <a href="{{ route('dashboard') }}" class="btn btn-neutral text-xl btn-wide transition duration-300 ease-in-out hover:scale-105">
+                                        Tableau de board
+                                </a>
+                            @endif
+                    @endif
                 </div>
             </div>
         @endauth

@@ -16,7 +16,7 @@
             <h2 class="text-2xl font-bold text-white"><span class="bg-primary rounded-box p-2">Admin Dashboard</span></h2>
         </div>
         <div class="flex-none">
-            <a href="{{ route('dashboard') }}" class="btn btn-primary">Mon Tableau de Bord</a>
+            <a href="{{ route('stand') }}" class="btn btn-primary">Mon Tableau de Bord</a>
         </div>
     </header>
 
@@ -42,26 +42,18 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>ID Utilisateur</th>
                                 <th>Nom Entreprise</th>
-                                <th>Actions</th>
+                                <th>Nom Stand</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($results as $row)
                             <tr>
                                 <td>{{ $row->id }}</td>
+                                <td>{{ $row->utilisateur_id }}</td>
                                 <td>{{ $row->nom_entreprise }}</td>
-                                <td class="flex gap-2">
-                                    <form action="/approuved" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{ $row->id }}">
-                                        <button class="btn btn-success btn-xs">Accepter</button>
-                                    </form><form action="/reject" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{ $row->id }}">
-                                        <button class="btn btn-error btn-xs">Refuser</button>
-                                    </form>
-                                </td>
+                                <td>{{ $row->nom_stand }}</td>
                             </tr>
                             @endforeach
                         </tbody>

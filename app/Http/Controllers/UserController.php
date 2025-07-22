@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Stand;
 use App\Models\Utilisateur;
 use Illuminate\Http\Request;
@@ -79,14 +78,17 @@ public function stand(Request $request)
 //------------Inscription-----------------
     public function register(Request $request){
         $dataform = $request->validate([
-            'nom' => ['required'],
-            'prenom' => ['required'],
+            'nom-entreprise' => ['required'],
             'email' => ['required', 'email', Rule::unique('utilisateurs' , 'email')],
             'mot_de_passe' => ['required', 'min:8' , 'max:200'],
         ]);
 
         $dataform['mot_de_passe'] = bcrypt($dataform['mot_de_passe']);
-        $user = Utilisateur::create($dataform);
+        $user = Utilisateur::create([
+            'email'          => $dataform['email'],
+            'mot_de_passe'   => $dataform['mot_de_passe'],
+            'nom_entreprise' => $dataform['nom-entreprise'], // ADD THIS
+        ]);
         Auth::login($user);
         return redirect('/');
     }

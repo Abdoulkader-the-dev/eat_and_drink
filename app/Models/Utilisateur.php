@@ -14,20 +14,19 @@ class Utilisateur extends Authenticatable
     protected $table = 'utilisateurs';
 
     protected $fillable = [
-        'nom',
-        'prenom',
+        'nom_entreprise',
         'email',
         'mot_de_passe',
     ];
     protected $casts = [
-        //'email_verified_at' => 'datetime', 
-        'mot_de_passe' => 'hashed', 
+        //'email_verified_at' => 'datetime',
+        'mot_de_passe' => 'hashed',
     ];
 
     // Relation: Un utilisateur peut avoir un stand (one-to-one)
     public function stand()
     {
-        return $this->hasOne(Stand::class, 'utilisateur_id'); 
+        return $this->hasOne(Stand::class, 'utilisateur_id');
     }
 
     public function getAuthPassword()
