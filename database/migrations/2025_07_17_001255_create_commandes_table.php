@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('stand_id')
-                ->constrained('stands')
-                ->onDelete('cascade');
+            $table->foreignId('stand_id')->constrained('stands')->onDelete('cascade');
             $table->text('details_commande');
             $table->timestamp('date_commande')->nullable();
+            
         });
     }
 

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('utilisateurs', function (Blueprint $table) {
             $table->id();                                   // id (PK)
-            $table->string('nom');
-            $table->string('prenom');
+           // $table->string('nom');
+            //$table->string('prenom');
             $table->string('nom_entreprise');               // nom de l'entreprise
             $table->string('email')->unique();              // email unique
             $table->string('mot_de_passe');                 // mot de passe

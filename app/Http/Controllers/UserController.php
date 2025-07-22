@@ -16,12 +16,16 @@ class UserController extends Controller
             'loginemail' => ['required', 'email'],
             'mot_de_passe' => ['required' , 'min:8'],
         ]);
+        $credentials = [
+        'email' => $dataform['loginemail'],
+        'password' => $dataform['mot_de_passe'],
+    ];
 
         if(Auth::attempt(['email' => $dataform['loginemail'],'mot_de_passe' => $dataform['mot_de_passe']])){
          $request->session()->regenerate();
         }
-        return redirect('/');
-    }
+         return back()->withErrors(['loginemail' => 'Informations d\'identification incorrectes.']);
+}
 
     public function logout(){
         Auth::logout();
