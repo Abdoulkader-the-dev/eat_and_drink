@@ -15,4 +15,6 @@ class Stand extends Model
     {
         return $this->hasMany(Produit::class);
     }
+
+    public $timestamps = false;
 }

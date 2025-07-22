@@ -30,5 +30,9 @@ class Utilisateur extends Authenticatable
         return $this->hasOne(Stand::class, 'utilisateur_id'); 
     }
 
+    public function getAuthPassword()
+    {
+        return $this->mot_de_passe;
+    }
     // You can add other model properties or methods here as needed
 }

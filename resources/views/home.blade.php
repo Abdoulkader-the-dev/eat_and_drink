@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bienvenue sur Eat & Drink</title> {{-- Titre plus pertinent --}}
     @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
 </head>
 <body>
     <div class="w-screen h-screen flex flex-col items-center justify-center space-between gap-20" data-theme="cupcake">
@@ -45,7 +46,7 @@
                 </a>
             </div>
         @endguest
-
     </div>
+    @endauth
 </body>
 </html>
