@@ -46,7 +46,7 @@ public function stand(Request $request)
 
 //-----------------Connexion---------------
     public function login(Request $request){
-      
+
         $dataform = $request->validate([
             'loginemail' => ['required', 'email'],
             'mot_de_passe' => ['required' , 'min:8'],
@@ -56,11 +56,11 @@ public function stand(Request $request)
         'password' => $dataform['mot_de_passe'],
     ];
 
-        if(Auth::attempt(['email' => $dataform['loginemail'],'mot_de_passe' => $dataform['mot_de_passe']])){
+        if(Auth::attempt(['email' => $dataform['loginemail'],'password' => $dataform['mot_de_passe']])){
          $request->session()->regenerate();
+         return redirect('/');
         }
          return back()->withErrors(['loginemail' => 'Informations d\'identification incorrectes.']);
-}
 
     return back()->withErrors([
         'loginemail' => 'Email ou mot de pass incorrect.',

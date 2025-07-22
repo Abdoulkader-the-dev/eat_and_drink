@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProduitController;
 
@@ -42,3 +42,11 @@ Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('ca
 //ROUTE POUR LE PROCESSUS DE COMMANDE
 Route::get('/checkout', [CartController::class, 'showCheckoutForm'])->name('checkout.show'); // Pour afficher le formulaire de commande
 Route::post('/checkout', [CartController::class, 'placeOrder'])->name('checkout.place'); // Pour soumettre la commande
+
+//Aller vers la page de board
+Route::get('/dashboard', [AdminController::class, 'liste_demande_stand'])->name('dashboard');
+Route::get('/app', function () {
+    return view('layouts.app');
+})->name('app');
+
+

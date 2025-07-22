@@ -1,52 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="lemonade">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Eat & Drink - @yield('title', 'Accueil')</title> {{-- AJOUTÉ: @yield('title') --}}
+    <title>Eat & Drink - @yield('title', 'Accueil')</title>
+    @vite('resources/css/app.css')
 </head>
-<body>
-    <header>
-        <h1>Bienvenue à Eat & Drink</h1>
-        {{--<nav>--}}
-            {{--<a href="/">Accueil</a>  Mieux de mettre la route '/' pour l'accueil --}}
-            {{--<a href="{{ route('produits.index') }}">Mes Produits</a>  AJOUTÉ: Lien vers vos produits --}}
-            {{-- Vous pouvez ajouter d'autres liens de navigation ici, par exemple pour la connexion/déconnexion --}}
-    <a href="{{ route('public.stands.index') }}" style="margin-right: 20px;">Nos Exposants</a>
-    <a href="{{ route('cart.view') }}" style="margin-right: 20px;">Panier</a> {{-- NOUVEAU LIEN --}}
-    {{-- Autres liens (Accueil, Connexion/Déconnexion, etc.) --}}
+<body class="min-h-screen bg-base-200 text-base-content flex flex-col">
 
-    {{-- Afficher le nombre d'articles dans le panier (optionnel, nécessite JS ou rechargement de page) --}}
-    @php
-        $cart = Session::get('cart', []);
-        $cartItemCount = array_sum(array_column($cart, 'quantite')); // Somme des quantités
-        // Ou juste le nombre d'articles uniques: count($cart);
-    @endphp
-    @if($cartItemCount > 0)
-        <span style="background-color: red; color: white; border-radius: 50%; padding: 2px 7px; font-size: 0.8em;">{{ $cartItemCount }}</span>
-    @endif
-</nav>
+    <!-- Header -->
+    <header class="navbar bg-base-100 shadow-md px-6">
+        <div class="flex-1">
+            <h1 class="text-2xl font-bold text-primary">Bienvenue à Eat & Drink</h1>
+        </div>
+        <nav class="flex-none flex gap-4">
+            <a href="{{ route('public.stands.index') }}" class="btn btn-outline btn-primary btn-sm">Nos Exposants</a>
+            <a href="{{ route('cart.view') }}" class="btn btn-outline btn-secondary btn-sm relative">
+                Panier
+                @php
+                    $cart = Session::get('cart', []);
+                    $cartItemCount = array_sum(array_column($cart, 'quantite'));
+                @endphp
+                @if($cartItemCount > 0)
+                    <span class="badge badge-error absolute -top-2 -right-2 text-xs">
+                        {{ $cartItemCount }}
+                    </span>
+                @endif
+            </a>
+        </nav>
     </header>
-    <main>
-        {{-- AJOUTÉ: Gestion des messages flash (succès, erreur) --}}
+
+    <!-- Flash messages -->
+    <main class="flex-1 container mx-auto px-6 py-6">
         @if (session('success'))
-            <div style="background-color: #d4edda; color: #155724; padding: 10px; border: 1px solid #c3e6cb; margin-bottom: 10px;">
-                {{ session('success') }}
+            <div class="alert alert-success shadow-lg mb-4">
+                <span>{{ session('success') }}</span>
             </div>
         @endif
         @if (session('error'))
-            <div style="background-color: #f8d7da; color: #721c24; padding: 10px; border: 1px solid #f5c6cb; margin-bottom: 10px;">
-                {{ session('error') }}
+            <div class="alert alert-error shadow-lg mb-4">
+                <span>{{ session('error') }}</span>
             </div>
         @endif
 
-        @yield('content') {{-- AJOUTÉ: @yield('content') pour le contenu principal de la page --}}
+        @yield('content')
     </main>
-    <footer>
-        <p>
-            &copy;{{ date('Y') }} Eat & Drink, Tous droits réservés
-        </p>
+
+    <!-- Footer -->
+    <footer class="footer footer-center bg-base-300 text-base-content p-4">
+        <p>&copy;{{ date('Y') }} Eat & Drink, Tous droits réservés</p>
     </footer>
+
 </body>
 </html>

@@ -3,21 +3,27 @@
 @section('title', 'Nos Stands Eat&Drink')
 
 @section('content')
-    <h2>Nos Stands</h2>
+    <h2 class="text-2xl font-bold mb-6 text-primary">Nos Stands</h2>
 
     @if($stands->count() > 0)
-        <div class="stands-list">
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             @foreach($stands as $stand)
-                <div class="stand-card" style="border: 1px solid #ccc; padding: 15px; margin-bottom: 20px;">
-                    <h3>{{ $stand->nom }}</h3>
-                    <p>{{ $stand->description }}</p>
-                    <p>Localisation: {{ $stand->localisation }}</p>
-                    <p>Contact: {{ $stand->contact }}</p>
-                    <a href="{{ route('public.stands.products', $stand->id) }}">Voir les produits de ce stand</a>
+                <div class="card bg-base-100 shadow-lg">
+                    <div class="card-body">
+                        <h3 class="card-title text-lg">{{ $stand->nom_stand }}</h3>
+                        <p>{{ $stand->description }}</p>
+                        {{-- <p>Localisation: {{ $stand->localisation }}</p>
+                        <p>Contact: {{ $stand->contact }}</p> --}}
+                        <div class="card-actions justify-end">
+                            <a href="{{ route('public.stands.products', $stand->id) }}" class="btn btn-primary btn-sm">
+                                Voir les produits
+                            </a>
+                        </div>
+                    </div>
                 </div>
             @endforeach
         </div>
     @else
-        <p>Il n'y a pas encore de stands disponibles.</p>
+        <p class="text-gray-500">Il n'y a pas encore de stands disponibles.</p>
     @endif
 @endsection
