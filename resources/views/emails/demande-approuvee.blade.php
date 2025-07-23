@@ -5,7 +5,7 @@ Nous avons le plaisir de vous informer que votre demande de statut d'entrepreneu
 
 Vous pouvez maintenant vous connecter à votre tableau de bord pour commencer à gérer votre stand et vos produits.
 
-<x-mail::button :url="url('/login')">
+<x-mail::button :url="url('/home')">
 Se connecter à votre tableau de bord
 </x-mail::button>
 
