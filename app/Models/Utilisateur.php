@@ -33,5 +33,9 @@ class Utilisateur extends Authenticatable
     {
         return $this->mot_de_passe;
     }
+
+    public function stands(){
+        return $this->hasMany(Stand::class, 'utilisateur_id'); // Specify foreign key if different
+    }
     // You can add other model properties or methods here as needed
 }

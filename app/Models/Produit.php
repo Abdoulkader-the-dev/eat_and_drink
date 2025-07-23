@@ -12,4 +12,6 @@ class Produit extends Model
         return $this->belongsTo(Stand::class);
     }
 
+     public $timestamps = false; // Disables auto-timestamps
+
 }

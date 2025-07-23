@@ -1,56 +1,93 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Connexion - Eat & Drink</title>
     @vite('resources/css/app.css')
 </head>
-<body>
-    <div class="w-screen h-screen flex items-center justify-center space-between gap-20"  data-theme="cupcake">
-    @guest
-    <!-- --------Inscription----------------_-->
-    <div id="register-form" class="flex flex-col justify-center rounded">
-        <form action="/register" method="POST">
-            @csrf
-            <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"  data-theme="retro">
-            <p class="fieldset-legend text-xl">Demande d'entreprenariat</p>
-            <label class="label">Nom de l'entreprise</label>
-            <input type="text" name="nom-entreprise" class="input" placeholder="laVilla" />
+<body class="min-h-screen bg-base-200">
+    <div class="hero min-h-screen">
+        <div class="hero-content flex-col">
+            <!-- Brand Logo/Header -->
+            <div class="text-center mb-8">
+                <h1 class="text-5xl font-bold text-primary">Eat & Drink</h1>
+                <p class="py-4 text-lg">Connectez-vous à votre espace entrepreneur</p>
+            </div>
 
-            <label class="label">Email</label>
-            <input type="email" name="email" class="input" placeholder="exemple@gmail.com" />
+            <!-- Login Card -->
+            <div class="card w-full max-w-md shadow-2xl bg-base-100">
+                <div class="card-body">
+                    <h2 class="card-title text-2xl mb-4 justify-center">Connexion</h2>
 
-            <label class="label">Mot de passe</label>
-            <input type="password" name="mot_de_passe" class="input" placeholder="********" min="8"/>
-            </fieldset>
-            <button class="btn btn-primary btn-wide border border-4 border-secondary m-4">S'inscrire</button>
-        </form>
-    </div>
+                    <form action="/login" method="POST">
+                        @csrf
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">Email</span>
+                            </label>
+                            <input type="text" name="loginemail"
+                                   class="input input-bordered"
+                                   placeholder="exemple@gmail.com"
+                                   value="{{ old('loginemail') }}"
+                                   required />
+                        </div>
 
-    <!-- --------Connexion----------------_-->
-    <div id="login-form" class="flex flex-col justify-center">
-        <form action="/login" method="POST">
-            @csrf
-            <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"  data-theme="retro">
-            <p class="fieldset-legend text-2xl">Se connecter</p>
+                        <div class="form-control mt-4">
+                            <label class="label">
+                                <span class="label-text">Mot de passe</span>
+                            </label>
+                            <input type="password" name="mot_de_passe"
+                                   class="input input-bordered"
+                                   placeholder="********"
+                                   minlength="8"
+                                   required />
+                            <label class="label">
+                                <a href="{{-- {{ route('password.request') }} --}}" class="label-text-alt link link-hover">Mot de passe oublié?</a>
+                            </label>
+                        </div>
 
-            <label class="label">Email</label>
-            <input type="text" name="loginemail" class="input" placeholder="exemple@gmail.com" />
-            <label class="label">Mot de passe</label>
-            <input type="password" name="mot_de_passe" class="input" placeholder="*****" min="8"/>
-            @error('loginemail')
-                <p class="text-red-500 text-sm mt-1 aler aler-warning">{{ $message }}</p>
-            @enderror
-            @error('mot_de_passe')
-                <p class="text-red-500 text-sm mt-1 aler aler-warning">{{ $message }}</p>
-            @enderror
-            </fieldset>
-            <button class="btn btn-primary btn-wide border border-4 border-secondary m-4">Se connecter 🚪</button>
-        </form>
-    </div>
-    @endguest
+                        <!-- Error Messages -->
+                        @error('loginemail')
+                        <div class="alert alert-error mt-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>{{ $message }}</span>
+                        </div>
+                        @enderror
 
+                        @error('mot_de_passe')
+                        <div class="alert alert-error mt-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>{{ $message }}</span>
+                        </div>
+                        @enderror
+
+                        <div class="form-control mt-6">
+                            <button type="submit" class="btn btn-primary">
+                                Se connecter
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="divider">OU</div>
+
+                    <div class="text-center">
+                        <p class="mb-4">Vous n'avez pas de compte?</p>
+                        <a href="{{ route('register') }}" class="btn btn-outline btn-accent">
+                            Créer un compte
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

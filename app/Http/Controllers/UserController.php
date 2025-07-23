@@ -72,7 +72,7 @@ public function stand(Request $request)
 //------------Deconnexion-----------------
     public function logout(){
         Auth::logout();
-        return redirect('/login');
+        return redirect('/');
     }
 
 //------------Inscription-----------------

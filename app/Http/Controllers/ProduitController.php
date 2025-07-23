@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Stand;
 use App\Models\Produit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -12,14 +14,32 @@ class ProduitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        // Vérifie si l'utilisateur est authentifié
-        $user = Auth::user();
-        //recupere tout les produit de la base de donnee
-        $produits = Produit::all();
-        return view('produits.index', compact('produits'));
-    }
+    /**
+ * Display a listing of the resource.
+ */
+public function index()
+{
+    // First get all stand IDs for the current user
+    $standIds = DB::table('stands')
+                ->where('utilisateur_id', Auth::id())
+                ->pluck('id')
+                ->toArray();
+
+    // Get a random stand ID (or null if no stands exist)
+    $randomStandId = !empty($standIds) ? $standIds[array_rand($standIds)] : null;
+
+    // Get products with eager loading
+    $produits = Produit::whereHas('stand', function($query) {
+                    $query->where('utilisateur_id', Auth::id());
+                })
+                ->with('stand') // Eager load stand relationship
+                ->get(['id', 'nom', 'description', 'prix', 'image_url', 'stand_id']);
+
+    return view('produits.index', [
+        'produits' => $produits,
+        'randomStandId' => $randomStandId
+    ]);
+}
 
 
     /**
@@ -43,7 +63,7 @@ class ProduitController extends Controller
                 'prix' => 'required|numeric|min:0.01',
                 'image_url' => 'nullable|url|max:255',
             ],
-            // Messages d'erreur 
+            // Messages d'erreur
             [
                 'nom.required' => 'Le nom du produit est obligatoire.',
                 'nom.string' => 'Le nom du produit doit être une chaîne de caractères.',
@@ -59,9 +79,14 @@ class ProduitController extends Controller
 
 
         $user = Auth::user();
+         $standIds = DB::table('stands')
+                ->where('utilisateur_id', Auth::id())
+                ->pluck('id')
+                ->toArray();
 
-
-        $standId = $user->stand_id ?? 1; // Remplacez 1 par un ID de stand existant si vous n'avez pas encore lié l'utilisateur à un stand
+    // Get a random stand ID (or null if no stands exist)
+    $randomStandId = !empty($standIds) ? $standIds[array_rand($standIds)] : null;
+        $standId = $user->stand_id ?? $randomStandId; // Remplacez 1 par un ID de stand existant si vous n'avez pas encore lié l'utilisateur à un stand
 
 
         $produit = Produit::create([
@@ -74,14 +99,6 @@ class ProduitController extends Controller
 
         // 4. Rediriger avec un message de succès
         return redirect()->route('produits.index')->with('success', 'Produit ajouté avec succès !');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
@@ -130,7 +147,7 @@ class ProduitController extends Controller
      */
    public function destroy(Produit $produit)
     {
-        $produit->delete(); 
+        $produit->delete();
 
         return redirect()->route('produits.index')->with('success', 'Produit supprimé avec succès !');
     }
