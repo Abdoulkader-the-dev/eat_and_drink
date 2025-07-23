@@ -7,6 +7,9 @@ use App\Http\Controllers\ProduitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PublicStandController;
 use App\Http\Controllers\CartController;
+use App\Models\Utilisateur;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\DemandeApprouvee;
 
 
 
@@ -55,3 +58,5 @@ Route::get('/stand', [AdminController::class, 'liste_stand'])->name('stand');
 Route::get('/dashboard', [AdminController::class, 'liste_demande_stand'])->name('dashboard');
 Route::post('/approuved', [AdminController::class, 'approuved'])->name('approuved');
 Route::post('/reject', [AdminController::class, 'reject'])->name('reject');
+
+

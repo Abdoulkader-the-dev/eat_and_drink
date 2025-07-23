@@ -43,6 +43,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Nom Entreprise</th>
+                                <th>Email</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -51,6 +52,7 @@
                             <tr>
                                 <td>{{ $row->id }}</td>
                                 <td>{{ $row->nom_entreprise }}</td>
+                                <td>{{ $row->email }}</td>
                                 <td class="flex gap-2">
                                     <form action="/approuved" method="POST">
                                         @csrf

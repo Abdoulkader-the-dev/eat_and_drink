@@ -27,6 +27,7 @@
                     </span>
                 @endif
             </a>
+             <a href="{{ route('login') }}" class="btn btn-outline btn-primary btn-sm">Se connecter</a>
         </nav>
     </header>
 

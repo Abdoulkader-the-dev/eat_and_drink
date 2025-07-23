@@ -170,6 +170,6 @@ return [
     'description' => 'description',
     'prix' => 'prix',
     'quantite' => 'quantité',
-    // Ajoutez tous les autres noms de champs de vos formulaires ici
+    
 ],
 ];
