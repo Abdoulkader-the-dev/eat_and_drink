@@ -40,10 +40,6 @@
         </table>
 
         <div style="margin-top: 30px; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
-            <h3>Détails de la Commande</h3>
-            <p>Ici, vous pourriez ajouter des champs pour les informations du client (nom, adresse, téléphone) si elles n'étaient pas gérées par l'authentification.</p>
-            <p>Pour ce TP, la simple confirmation du panier suffit.</p>
-
             <form action="{{ route('checkout.place') }}" method="POST" style="margin-top: 20px;">
                 @csrf
                 <button type="submit" style="background-color: #28a745; color: white; padding: 15px 25px; border: none; border-radius: 5px; font-size: 1.2em; cursor: pointer;">
