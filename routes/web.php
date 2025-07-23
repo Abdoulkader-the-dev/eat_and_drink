@@ -12,14 +12,19 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\DemandeApprouvee;
 
 
-
 Route::get('/', function () {
     return view('home');
-});//->middleware('auth');
+})->name('home');
 
 Route::get('/login', function () {
-    return view('login'); // create this view
+    return view('login');
 })->name('login');
+
+Route::get('/register', function () {
+    return view('inscr');
+})->name('register');
+
+
 
 //Retournez vers le home page
 Route::get('/stand', function () {
@@ -53,7 +58,7 @@ Route::get('/checkout', [CartController::class, 'showCheckoutForm'])->name('chec
 Route::post('/checkout', [CartController::class, 'placeOrder'])->name('checkout.place'); // Pour soumettre la commande
 
 //Admin
-//Aller vers la page de board
+//Aller vers les pages de boards
 Route::get('/stand', [AdminController::class, 'liste_stand'])->name('stand');
 Route::get('/dashboard', [AdminController::class, 'liste_demande_stand'])->name('dashboard');
 Route::post('/approuved', [AdminController::class, 'approuved'])->name('approuved');
